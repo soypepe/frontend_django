@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router'
 import { ClienteService } from '../../servicios/cliente.service'
-import { Cliente } from '../../modelos'
+import { APIRespuesta, Cliente } from '../../modelos'
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router'
+import { HttpErrorResponse } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-cliente-detalles',
@@ -20,7 +22,7 @@ export class ClienteDetallesComponent implements OnInit, OnDestroy {
   constructor(
     private ruta: ActivatedRoute,
     private http: ClienteService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -33,28 +35,31 @@ export class ClienteDetallesComponent implements OnInit, OnDestroy {
   getClienteDetalles(id: number): void {
     this.clienteSub = this.http
       .clienteDetalles(id)
-      .subscribe((clienteResp: Cliente[]) => {
+      .subscribe((clienteResp: APIRespuesta<Cliente>) => {
+        console.log(clienteResp.datos)
         this.cliente = clienteResp
       })
   }
 
   actualizarCliente(): void {
-    if (confirm('Editar el usuario ' + this.cliente.nombre)) {
+    // this.cliente.datos.fecha = new DatePipe('en-US').transform(this.cliente.datos.fecha, 'dd/MM/yyyy')
+    if (confirm('Editar el usuario ' + this.cliente.datos.nombre)) {
       this.clienteSub = this.http
-        .actualizarCliente(this.cliente.id, this.cliente)
-        .subscribe(() => {
+        .actualizarCliente(this.cliente.datos.id, this.cliente.datos)
+        .subscribe((respuesta) => {
+          console.log(respuesta)
           this.router.navigate(['clientes-lista'])
         },
-          error => {
+          (error: HttpErrorResponse) => {
             console.log(error)
           })
     }
   }
 
   borrarCliente(): void {
-    if (confirm('Se eliminara el cliente ' + this.cliente.nombre)) {
+    if (confirm('Se eliminara el cliente ' + this.cliente.datos.nombre)) {
       this.clienteSub = this.http
-        .borrarCliente(this.cliente.id)
+        .borrarCliente(this.cliente.datos.id)
         .subscribe(respuesta => {
           console.log(respuesta)
           this.router.navigate(['clientes-lista'])

@@ -4,4 +4,9 @@ export interface Cliente {
   direccion: string
   telefono: string
   ci: string
+  status: string
+}
+
+export interface APIRespuesta<T> {
+  datos: Array<T>
 }

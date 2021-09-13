@@ -1,16 +1,40 @@
 <div style="width: 500px; margin: auto;">
-  <div *ngIf="cliente" class="edit-form">
+  <div *ngIf="cliente?.estado==200" class="edit-form">
     <h4>Cliente</h4>
     <form ng-controller="cliente">
       <div class="form-group">
         <label for="title">Nombre</label>
-        <input type="text" [(ngModel)]="cliente.nombre" class="form-control" id="nombre" name="nombre" />
+        <input type="text" [(ngModel)]="cliente.datos.nombre" class="form-control" id="nombre" name="nombre" />
       </div>
       <div class="form-group">
         <label for="direccion">Direccion</label>
-        <input type="text" [(ngModel)]="cliente.direccion" class="form-control" id="direccion" name="direccion" />
+        <input type="text" [(ngModel)]="cliente.datos.direccion" class="form-control" id="direccion" name="direccion" />
       </div>
-
+      <div class="form-group">
+        <label for="telefono">Telefono</label>
+        <input type="text" [(ngModel)]="cliente.datos.telefono" class="form-control" id="telefono" name="telefono" />
+      </div>
+      <div class="form-group">
+        <label for="ci">CI</label>
+        <input type="text" [(ngModel)]="cliente.datos.ci" class="form-control" id="ci" name="ci" />
+      </div>
+      <div class="form-group">
+        <label for="edad">Edad</label>
+        <input type="text" [(ngModel)]="cliente.datos.edad" class="form-control" id="edad" name="edad" />
+      </div>
+      <div class="form-group">
+        <label for="fecha">FechaRegistro</label>
+        <input type="text" [(ngModel)]="cliente.datos.fecha" class="form-control" id="fecha" name="fecha" />
+      </div>
+      <div class="form-group">
+        <label for="a">Sexo</label>
+        <select class="form-control" name="sexo" id="sexo" [(ngModel)]="cliente.datos.sexo">
+          <option value="">Selecione</option>
+          <option value="masculino">Masculino</option>
+          <option value="femenino">Femenino</option>
+        </select>
+        <!-- <input type="text" [(ngModel)]="cliente.datos.sexo" class="form-control" id="sexo" name="sexo" /> -->
+      </div>
       <div class="form-group">
         <label><strong>Acciones:</strong></label>
 
@@ -27,8 +51,8 @@
     <p></p>
   </div>
 
-  <div *ngIf="!cliente">
+  <div *ngIf="cliente?.estado!==200">
     <br />
-    <p>Este cliente no puede mostrarse</p>
+    <p>Este cliente no puede mostrarse o no existe</p>
   </div>
 </div>

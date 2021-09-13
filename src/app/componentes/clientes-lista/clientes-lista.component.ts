@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import { Subscription } from 'rxjs';
-import { Cliente } from 'src/app/modelos';
+import { APIRespuesta, Cliente } from 'src/app/modelos';
 import { ClienteService } from '../../servicios/cliente.service'
 
 @Component({
@@ -11,7 +11,7 @@ import { ClienteService } from '../../servicios/cliente.service'
 })
 export class ClientesListaComponent implements OnInit, OnDestroy {
 
-  public clientes: Array<Cliente> = []
+  public clientes: Cliente | any
   private rutaSub: Subscription | undefined
   private clienteSub: Subscription | undefined
 
@@ -27,7 +27,7 @@ export class ClientesListaComponent implements OnInit, OnDestroy {
 
   getClientes(): void {
     this.clienteSub = this.clienteServicio.getTodos()
-      .subscribe((clientesLista: Array<Cliente>) => {
+      .subscribe((clientesLista: APIRespuesta<Cliente>) => {
         this.clientes = clientesLista
       },
         error => {

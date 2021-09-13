@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../../servicios/cliente.service'
+import { DatePipe } from '@angular/common'
 
 @Component({
   selector: 'app-agregar-cliente',
@@ -13,6 +14,9 @@ export class AgregarClienteComponent implements OnInit {
     direccion: '',
     telefono: '',
     ci: '',
+    edad: 0,
+    fecha: '',
+    sexo: '',
   }
   enviado = false
 
@@ -26,7 +30,10 @@ export class AgregarClienteComponent implements OnInit {
       nombre: this.cliente.nombre,
       direccion: this.cliente.direccion,
       telefono: this.cliente.telefono,
-      ci: this.cliente.ci
+      ci: this.cliente.ci,
+      edad: this.cliente.edad,
+      fecha: new DatePipe('en-US').transform(this.cliente.fecha, 'dd/MM/yyyy'),
+      sexo: this.cliente.sexo,
     }
 
     this.clienteServicio.crearCliente(formulario)
@@ -43,6 +50,9 @@ export class AgregarClienteComponent implements OnInit {
       direccion: '',
       telefono: '',
       ci: '',
+      fecha: '',
+      edad: 0,
+      sexo: '',
     }
   }
 
