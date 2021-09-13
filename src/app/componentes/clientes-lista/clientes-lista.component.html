@@ -1,0 +1,33 @@
+<div class="list row">
+  <button (click)="agregarCliente()" class="col-md-2 btn btn-sm btn-primary">
+    Agregar+
+  </button>
+  <div class="col-md-12">
+    <hr>
+    <h4>Lista de Clientes</h4>
+    <table class="table table-sm table-hover table-dark text-center align-middle">
+      <thead>
+        <tr>
+          <th scope="col">nombre</th>
+          <th scope="col">direccion</th>
+          <th scope="col">telefono</th>
+          <th scope="col">ci</th>
+          <th scope="col">acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <td>{{cliente.nombre}}</td>
+          <td>{{cliente.direccion}}</td>
+          <td>{{cliente.telefono}}</td>
+          <td>{{cliente.ci}}</td>
+          <td>
+            <button class="m-1 btn btn-sm btn-success" (click)='getClienteDetalles(cliente.id)'>Ver</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>

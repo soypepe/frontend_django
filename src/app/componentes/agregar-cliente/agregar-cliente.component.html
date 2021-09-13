@@ -1,0 +1,32 @@
+<div style="width: 500px; margin: auto;">
+  <div class="submit-form">
+    <div *ngIf="!enviado">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" class="form-control" id="nombre" required [(ngModel)]="cliente.nombre" name="nombre" />
+      </div>
+
+      <div class="form-group">
+        <label for="direccion">Direccion</label>
+        <input class="form-control" id="direccion" required [(ngModel)]="cliente.direccion" name="direccion" />
+      </div>
+
+      <div class="form-group">
+        <label for="telefono">Telefono</label>
+        <input type="text" class="form-control" id="telefono" required [(ngModel)]="cliente.telefono" name="telefono" />
+      </div>
+
+      <div class="form-group">
+        <label for="ci">CI</label>
+        <input type="text" class="form-control" id="ci" required [(ngModel)]="cliente.ci" name="ci" />
+      </div>
+
+      <button (click)="crearCliente()" class="btn btn-success">Create</button>
+    </div>
+
+    <div *ngIf="enviado">
+      <h3>You successfully created a product!</h3>
+      <button class="btn btn-success" (click)="nuevoCliente()">New..</button>
+    </div>
+  </div>
+</div>
